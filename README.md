@@ -41,7 +41,7 @@ sudo emerge -a app-editors/neovim
 ### 2. Clone the repository
 
 ```
-git clone https://github.com/TheItcor/moai.vim.git ~/.config/nvim
+git clone https://github.com/TheItcor/MoaiVim.git ~/.config/nvim
 ```
 
 ### 3. Download the VimPlug
