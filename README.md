@@ -6,6 +6,7 @@ MoaiVim is a minimalistic config for your Neovim. It's easy to customize and ext
 
 <img width="1215" height="1191" alt="изображение" src="https://github.com/user-attachments/assets/742825fc-81c0-4e83-8ab8-969e78f1fc71" />
 
+
 ---
 # Requirements
 * Git
@@ -63,3 +64,13 @@ In Neovim enter:
 Once everything is ready, **restart**
 
 ---
+
+
+# What's inside?
+- Git system right in Vim
+- Terminal right in vim `Alt + x`
+- Compile + Run `F5`
+- File Manager `Alt + e`
+- LSR
+- Others nice stuff
+
