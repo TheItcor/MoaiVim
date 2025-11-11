@@ -107,6 +107,7 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'mfussenegger/nvim-jdtls'
 
 
 vim.call('plug#end')
@@ -196,7 +197,7 @@ indent = {
 -- LSR settings {
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = {"lua_ls", "rust_analyzer", "pyright", "ts_ls"}
+  ensure_installed = {"lua_ls", "rust_analyzer", "pyright", "ts_ls", "jdtls"}
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
