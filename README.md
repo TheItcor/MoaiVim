@@ -7,11 +7,12 @@
 
 <h3 align="center">  
        <br>
-       MoaiVim is a minimalistic config for your Neovim. It's easy to customize and extend. This configuration is suitable for both beginners and experienced Vim users.
+       MoaiVim is a minimalistic config for your Neovim. It's easy to customize and extend. This configuration is suitable for both beginners and experienced Vim users. 
        <br><br>
        <img width="1215" height="1191" alt="изображение" src="https://github.com/user-attachments/assets/742825fc-81c0-4e83-8ab8-969e78f1fc71" />
 </h3>
 
+*C++*? *Java*? Maybe *Python*? This config is good for programming in most languages. Syntax **highlighting**, **snippets**, **LSR**, and **Vim-motions** will take your fast coding to the next level.
 
 <h1 align="center">    
               
@@ -93,6 +94,7 @@ Once everything is ready, **restart**
 - Compile + Run `F5`
 - File Manager `Alt + e`
 - LSR
+- Snippets
 - Others nice stuff
 
 <br>
