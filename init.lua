@@ -18,14 +18,14 @@
 -- 
 --
 --
--- Last update: 09.11.2025
+-- Last update: 12.11.2025
 -- Version 
 --      |
 --      |
 --      |
 --     \ /
 --      v
-local config_version = '[v1.0] "Little Turtle"' 
+local config_version = '[v1.1] "Little Turtle"' 
   
 -- Basic settings {
 vim.opt.number = true
