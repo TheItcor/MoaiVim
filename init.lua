@@ -25,7 +25,7 @@
 --                        |
 --                       \ /
 --                        v
-local config_version = '[v1.1] "Little Turtle"'
+local config_version = '[v1.2] "Little Turtle"'
   
 -- Basic settings {
 vim.opt.number = true
@@ -80,7 +80,7 @@ Plug 'nvimdev/dashboard-nvim' -- New Start Menu
 
 
 -- file manage
-Plug 'nvim-treesitter/nvim-treesitter' -- Parser
+Plug 'nvim-treesitter/nvim-treesitter' -- Parser | it's here only for treesitter-family
 Plug 'nvim-tree/nvim-tree.lua' -- File Manager
 Plug 'nvim-tree/nvim-web-devicons' -- Icons for File Manager
 Plug 'tpope/vim-fugitive' -- Git
@@ -346,11 +346,10 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Find text (live g
 -- Start screen {
 require('dashboard').setup({
   theme = 'doom',
-  colors = {
-    {fg = "#24d4b6"}, -- this thing works very stangely, so the color is set below
-    {fg = "#2bc4b0"}, 
-    {fg = '#98c379'}
-  },
+  --colors = {
+  --  {fg = "#24d4b6"}, -- this thing works very stangely, so the color is set below
+  --  {fg = "#2bc4b0"}
+  --},
   config = {
     header = {
       "",
@@ -423,9 +422,12 @@ require('dashboard').setup({
 
   }
 })
--- }
 vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#24d4b6", bg = "NONE", bold = true })
-vim.api.nvim_set_hl(0, "DashboardCenter", { fg = "#2bc4b0", bg = "NONE", bold = true })
+vim.api.nvim_set_hl(0, "DashboardDesc", { fg = "#40E0D0", bg = "NONE", bold = true })
+vim.api.nvim_set_hl(0, "DashboardIcon", { fg = "#FFFFFF", bg = "NONE", bold = true })        
+vim.api.nvim_set_hl(0, "DashboardKey", { fg = "#FFFFFF", bg = "NONE", bold = true })
+-- }
+
 
 
 
