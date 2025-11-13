@@ -49,21 +49,17 @@ vim.opt.showcmd = true
 vim.opt.shortmess:append("I")
 vim.opt.showmatch = true
 
--- Searching settings {
+-- Searching settings 
 vim.opt.ignorecase = true
--- }
 
--- Syntax light {
+-- Syntax light 
 vim.opt.termguicolors = true
--- }
 
--- UTF-8 {
+-- UTF-8 
 vim.opt.encoding = "utf-8"
---}
 
--- No swaps {
+-- No swaps 
 vim.opt.swapfile = false
--- }
 
 -- }
 
@@ -79,8 +75,8 @@ vim.call('plug#begin')
 -- Goods
 Plug 'Mofiqul/vscode.nvim' -- Colorscheme
 Plug 'nvim-lualine/lualine.nvim' -- Status Bar
--- Plug 'mhinz/vim-startify' -- Start Menu
-Plug 'nvimdev/dashboard-nvim' -- Start Menu
+-- Plug 'mhinz/vim-startify' -- Old Start Menu
+Plug 'nvimdev/dashboard-nvim' -- New Start Menu
 
 
 -- file manage
@@ -204,58 +200,98 @@ indent = {
 
 
 -- LSR settings {
+-- Setup Mason and mason-lspconfig for installing LSP servers
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = {"lua_ls", "rust_analyzer", "pyright", "ts_ls", "jdtls"}
+  ensure_installed = {"lua_ls", "rust_analyzer", "pyright", "ts_ls", "clangd"}
 })
 
+-- LSP capabilities from cmp_nvim_lsp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local servers = {'lua_ls', 'rust_analyzer', 'pyright', 'ts_ls', 'clangd', 'jdtls'}
+local servers = {'lua_ls', 'rust_analyzer', 'pyright', 'ts_ls', 'clangd'} 
 for _, server in ipairs(servers) do
   vim.lsp.config(server, {
-    capabilities = capabilities,
+    capabilities = capabilities,  -- Attach capabilities for CMP integration
   })
-  vim.lsp.enable(server)
+  vim.lsp.enable(server)  -- Enable the config to activate for filetypes
 end
 
-local cmp = require'cmp'
+-- Special setup for java
+-- This uses autocmd to attach jdtls only for Java buffers, avoiding lspconfig issues...
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "java",
+  callback = function()
+    local jdtls = require('jdtls')
+    jdtls.start_or_attach({
+      cmd = { 'jdtls' },
+      root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+      capabilities = capabilities,
+    })
+  end,
+})
+
+-- Snippets
+local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
+
+local cmp = require('cmp')
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)  -- Expand snippets using LuaSnip
+    end,
+  },
   sources = {
-    { 
-      name = 'nvim_lsp', 
-      max_item_count = 6, -- limits LSP to 6 options
+    {
+      name = 'nvim_lsp',
+      max_item_count = 6,  -- Limit LSP suggestions to 6
       group_index = 1,
     },
-    { 
-      name = 'buffer', 
+    {
+      name = 'luasnip',
+      max_item_count = 3,  -- Limit snippet suggestions to 3
+      group_index = 1,
+    },
+    {
+      name = 'buffer',
       keyword_length = 3,
-      max_item_count = 2, -- buffer only 2 options
+      max_item_count = 2,  -- Limit buffer suggestions to 2
       group_index = 2,
     },
   },
-
   mapping = {
-    -- KEYMAP!
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = cmp.mapping.select_next_item(),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<C-Space>'] = cmp.mapping.complete(), 
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Confirm selection with Enter
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()  -- Next item in completion menu
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()  -- Expand or jump in snippet
+      else
+        fallback()
+      end
+    end, {'i', 's'}),  -- Apply in insert and select modes
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()  -- Previous item in completion menu
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()  -- Fallback to default Shift-Tab behavior
+      end
+    end, {'i', 's'}),
+    ['<C-Space>'] = cmp.mapping.complete(),  -- Trigger completion menu
   },
-
   completion = {
     keyword_length = 2,
     completeopt = "menu,menuone,noinsert,noselect",
   },
-
   window = {
     completion = {
-      max_height = 6, 
-      scrollbar = true,
+      max_height = 6,
+      scrollbar = true,  -- Enable scrollbar if needed
     }
   },
-  
-  -- Group & Sort
   sorting = {
     comparators = {
       cmp.config.compare.offset,
@@ -266,53 +302,11 @@ cmp.setup({
       cmp.config.compare.sort_text,
       cmp.config.compare.length,
       cmp.config.compare.order,
-    }
+    } 
   }
 })
 -- }
 
-
--- Snippets {
-local luasnip = require("luasnip")
-require("luasnip.loaders.from_vscode").lazy_load()
-
-local cmp = require("cmp")
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-
-  mapping = {
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end,
-  },
-
-  sources = {
-    { name = 'nvim_lsp', max_item_count = 6 },
-    { name = 'buffer', keyword_length = 3, max_item_count = 2 },
-    { name = 'luasnip' }, --
-  },
-})
--- }
 
 
 -- Friendly non-English input {
