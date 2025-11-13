@@ -18,23 +18,23 @@
 -- 
 --
 --
--- Last update: 12.11.2025
+-- Last update: 13.11.2025
 --                     Version 
 --                        |
 --                        |
 --                        |
 --                       \ /
 --                        v
-local config_version = '[v1.1] "Little Turtle"' 
+local config_version = '[v1.1] "Little Turtle"'
   
 -- Basic settings {
 vim.opt.number = true
 
 -- Tabs
-vim.opt.expandtab = true    
-vim.opt.tabstop = 4       
-vim.opt.shiftwidth = 4  
-vim.opt.softtabstop = 4   
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
 vim.opt.autoindent = true 
 vim.opt.smartindent = true
 
@@ -80,6 +80,7 @@ Plug 'nvimdev/dashboard-nvim' -- New Start Menu
 
 
 -- file manage
+Plug 'nvim-treesitter/nvim-treesitter' -- Parser
 Plug 'nvim-tree/nvim-tree.lua' -- File Manager
 Plug 'nvim-tree/nvim-web-devicons' -- Icons for File Manager
 Plug 'tpope/vim-fugitive' -- Git
@@ -128,6 +129,15 @@ vim.cmd([[colorscheme vscode]])
 
 -- Actication of Lualine
 require('lualine').setup{}
+-- }
+
+
+-- Treesitter {
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { 'lua', 'rust', 'python', 'typescript', 'c', 'cpp','java', 'javascript' },
+  -- highlight = { enable = true },
+  -- indent = { enable = true },
+}
 -- }
 
 
