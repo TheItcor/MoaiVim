@@ -93,7 +93,7 @@ Plug 'nvim-telescope/telescope.nvim' -- Telescope
 Plug 'aliqyan-21/runTA.nvim' -- Run code
 Plug 'jiangmiao/auto-pairs' -- Auto closed brakets
 Plug 'akinsho/toggleterm.nvim' -- Terminal
-Plug 'sheerun/vim-polyglot' -- Syntax highlight
+-- Plug 'sheerun/vim-polyglot' -- Syntax highlight
 Plug 'Wansmer/langmapper.nvim' -- Friendly non-English input
 Plug 'lukas-reineke/indent-blankline.nvim' -- For C-style code {}
 
