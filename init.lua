@@ -18,14 +18,14 @@
 -- Special thanks: Contributer(s)
 --
 --
--- Last update: 21.11.2025
+-- Last update: 23.11.2025
 --                     Version
 --                        |
 --                        |
 --                        |
 --                       \ /
 --                        v
-local config_version = '[v1.4] "Little Turtle"'
+local config_version = '[v1.5-dev] "Little Turtle"'
 
 -- Basic settings {
 vim.o.number = true -- Show numbers
@@ -102,6 +102,7 @@ Plug('windwp/nvim-autopairs') -- New plugin for auto closed brakets
 Plug('akinsho/toggleterm.nvim') -- Terminal
 Plug('Wansmer/langmapper.nvim') -- Friendly non-English input
 Plug('lukas-reineke/indent-blankline.nvim') -- For C-style code {}
+Plug('Civitasv/cmake-tools.nvim') -- CMake for C/C++ build projects 
 
 -- LSR
 Plug('neovim/nvim-lspconfig')
@@ -228,6 +229,18 @@ require('ibl').setup({
     filetypes = { 'dashboard', 'NvimTree' },
     buftypes = { 'terminal' },
   },
+})
+-- }
+
+-- CMake for Build C/C++ {
+require("cmake-tools").setup({
+  cmake_command = "cmake",
+  cmake_build_directory = "build",
+  cmake_build_directory_prefix = "build/", 
+  cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
+  cmake_build_options = {},
+  cmake_console_size = 10,
+  cmake_show_console = "always",
 })
 -- }
 
