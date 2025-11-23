@@ -410,6 +410,10 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find file' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Find text (live grep)' })
 -- }
 
+-- Commands {
+vim.api.nvim_create_user_command('Q', 'Dashboard', {}) -- Retun to main menu
+-- }
+
 -- Start screen {
 require('dashboard').setup({
   theme = 'doom',
