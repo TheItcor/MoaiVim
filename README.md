@@ -3,7 +3,7 @@
        <img width="936" height="257" alt="изображение" src="https://github.com/user-attachments/assets/ad953a56-f9ae-4c35-b1ba-3a2a4ef372a0" />
  
               
-![Version](https://img.shields.io/badge/version-1.4-green)
+![Version](https://img.shields.io/badge/version-2.0-green)
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
               
 </h1>
@@ -89,7 +89,7 @@ git clone https://github.com/TheItcor/MoaiVim.git ~/.config/nvim
 ```
 nvim
 ```
-... And just wait for Vim-Plug, plugins, and lsp to download.
+... And just wait for LazyPlug, plugins, and lsp to download.
 
 
 
@@ -128,20 +128,3 @@ It's GNU Licensе: [GPL-3.0](github.com/TheItcor/MoaiVim/blob/main/LICENSE)
 # Afterword
 
 Thank you for your interest in my project. I welcome any suggestions you may have.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
